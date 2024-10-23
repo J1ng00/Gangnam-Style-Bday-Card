@@ -1,0 +1,102 @@
+<html>
+<head>
+    <style>
+        /* Center the button */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        /* Hidden sprite initially */
+        #sprite {
+            display: none; /* Hide the sprite initially */
+            width: 225px;
+            height: 400px;
+            background-image: url('sprite.png');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            animation: none; /* Animation disabled initially */
+            position: absolute; /* To position it freely later if needed */
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); /* Center sprite */
+        }
+
+        /* Sprite Animation */
+        @keyframes gangnam {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: -5175px 0; /* Adjust based on sprite width */
+            }
+        }
+
+        /* Movement Animation */
+        @keyframes moveAround {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(600px);
+            }
+        }
+
+        button {
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="sprite"></div>
+
+    <!-- Centered Button -->
+    <button id="startButton">Click to Start</button>
+
+    <!-- Audio Element -->
+    <audio id="blastAudio" src="audio.mp3"></audio>
+
+    <script>
+        const sprite = document.getElementById('sprite');
+        const audio = document.getElementById('blastAudio');
+        const startButton = document.getElementById('startButton');
+
+        // Function to start the animation and audio
+        function startAnimationAndAudio() {
+            // Show the sprite and start animations
+            sprite.style.display = 'block'; 
+            sprite.style.animation = 
+                'gangnam 4s steps(23) infinite, moveAround 12s steps(69) infinite alternate';
+
+            // Play audio at max volume
+            audio.volume = 1.0;
+            audio.play().then(() => {
+                console.log('Audio is playing');
+            }).catch(error => {
+                console.error('Error playing audio:', error);
+            });
+
+            // Hide the button after clicking to avoid multiple triggers
+            startButton.style.display = 'none';
+        }
+
+        // Add click event listener to the button
+        startButton.addEventListener('click', startAnimationAndAudio);
+    </script>
+</body>
+</html>
